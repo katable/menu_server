@@ -1,0 +1,20 @@
+{
+  "name": "katable_proxy",
+  "version": "1.0.0",
+  "description": "a proxy server to connect to all components in KATABLE (FEC Project)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./index.js"
+  },
+  "author": "Tony Wu",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "http": "0.0.0",
+    "morgan": "^1.9.1",
+    "path": "^0.12.7",
+    "request": "^2.88.0"
+  }
+}
