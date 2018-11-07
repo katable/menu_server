@@ -1,2 +1,2 @@
-# menu_server
-this is the proxy that serves the menu component in our OpenTable clone.
+# tony_proxyserver
+this is the proxy that serves the multiple components of our FEC project to recreate OpenTable
