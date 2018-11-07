@@ -39,6 +39,7 @@ app.get('/restaurant/:restaurant_id/reviews', (req, res) => {
     if (err) {
       throw err;
     } else {
+      console.log('reviews', body)
       res.send(body);
     }
   });
@@ -49,16 +50,18 @@ app.get('/reservations/timesBookedToday/:restaurant_id', (req, res) => {
     if (err) {
       throw err;
     } else {
+      console.log('timesbooked', body)
       res.send(body);
     }
   });
 });
 
 app.get('/reservations/inventory', (req, res) => {
-  request(`${reservationServer}/reservations/inventory`, (err, response, body) => {
+  request(`${reservationServer}${req.originalUrl}`, (err, response, body) => {
     if (err) {
       throw err;
     } else {
+      console.log('inventory', body)
       res.send(body);
     }
   })
