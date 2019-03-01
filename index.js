@@ -9,13 +9,14 @@ const port = process.env.port || 3005;
 app.use(morgan('dev'));
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
-const infoServer = 'http://localhost:3001';
-const menuServer = 'http://localhost:3000';
-const reviewServer = 'http://localhost:8080';
-const reservationServer = 'http://localhost:3002';
+
+const infoServer = 'http://ec2-52-53-177-126.us-west-1.compute.amazonaws.com';
+const menuServer = 'http://ec2-18-212-129-29.compute-1.amazonaws.com';
+const reviewServer = 'http://ec2-18-219-151-31.us-east-2.compute.amazonaws.com';
+const reservationServer = 'http://ec2-54-153-45-179.us-west-1.compute.amazonaws.com';
 
 app.get('/restaurant/profile/:restaurant_id', (req, res) => {
-  request(`${infoServer}/restaurant/profile/${req.params.restaurant_id}`, (err, response, body) => {
+  request(`${infoServer}${req.originalUrl}`, (err, response, body) => {
     if (err) {
       throw err;
     } else {
@@ -25,28 +26,17 @@ app.get('/restaurant/profile/:restaurant_id', (req, res) => {
 });
 
 app.get('/restaurants/:restaurant_id/menu', (req, res) => {
-  request(`${menuServer}/restaurants/${req.params.restaurant_id}/menu`, (err, response, body) => {
+  request(`${menuServer}${req.originalUrl}`, (err, response, body) => {
     if (err) {
       throw err;
     } else {
-      res.send(body);
-    }
-  });
-});
-
-app.get('/restaurant/:restaurant_id/reviews', (req, res) => {
-  request(`${reviewServer}/restaurant/${req.params.restaurant_id}/reviews`, (err, response, body) => {
-    if (err) {
-      throw err;
-    } else {
-      console.log('reviews', body)
       res.send(body);
     }
   });
 });
 
 app.get('/reservations/timesBookedToday/:restaurant_id', (req, res) => {
-  request(`${reservationServer}/reservations/timesBookedToday/${req.params.restaurant_id}`, (err, response, body) => {
+  request(`${reservationServer}${req.originalUrl}`, (err, response, body) => {
     if (err) {
       throw err;
     } else {
@@ -66,6 +56,18 @@ app.get('/reservations/inventory', (req, res) => {
     }
   })
 });
+
+app.get('/restaurant/:restaurant_id/reviews', (req, res) => {
+  request(`${reviewServer}${req.originalUrl}`, (err, response, body) => {
+    if (err) {
+      throw err;
+    } else {
+      console.log('reviews', body)
+      res.send(body);
+    }
+  });
+});
+
 
 app.listen(port, () => {
   console.log(`listening to port ${port}...`);
